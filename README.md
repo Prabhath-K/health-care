@@ -205,3 +205,292 @@ Hospitalization Details
 ```
 
 These cleaned tables can now be used for additional exploratory data analysis, statistical analysis, dashboard creation, and visualization.
+
+
+# Data Transformation
+
+## Overview
+
+After completing the data-cleaning stage, the next step of the project focused on transforming the cleaned data into a more structured and analysis-ready format.
+
+The transformation process was performed using **Microsoft Excel** and **Power Query**.
+
+The main objectives were to:
+
+- Split customer names into meaningful components
+- Convert surgery information into numerical data
+- Standardize inconsistent categorical values
+- Categorize customers based on BMI and HbA1C
+- Create Date of Birth and Age fields
+- Format healthcare charges as currency
+
+---
+
+## Data Transformation Tasks
+
+### 1. Split Customer Names
+
+The `names` column in the **Customer Names** table was split into three meaningful columns:
+
+- `Title`
+- `First Name`
+- `Last Name`
+
+For example:
+
+```text
+Hawks, Ms. Kelly
+```
+
+was transformed into:
+
+| Title | First Name | Last Name |
+|---|---|---|
+| Ms. | Kelly | Hawks |
+
+Splitting the customer names into separate fields improved data organization and made it easier to filter, sort, and analyze customer information.
+
+---
+
+### 2. Convert `NumberOfMajorSurgeries` to Numerical Data
+
+The `NumberOfMajorSurgeries` column in the **Medical Examinations** table contained values that were not consistently stored as numeric data.
+
+Non-numeric characters and textual representations were reviewed and converted into meaningful numerical values.
+
+The objective was to ensure that the column contained only numeric values so that mathematical and analytical operations such as the following could be performed correctly:
+
+- Sum
+- Average
+- Comparison
+- PivotTable analysis
+
+After transformation, the `NumberOfMajorSurgeries` field was converted to a numerical data type.
+
+---
+
+### 3. Correct Inconsistencies in `Heart Issues` and `smoker`
+
+The `Heart Issues` and `smoker` columns were checked for inconsistent categorical values.
+
+Examples of inconsistencies included:
+
+```text
+yes
+Yes
+YES
+```
+
+and:
+
+```text
+no
+No
+NO
+```
+
+Although these values have the same meaning, inconsistent capitalization can cause them to appear as separate categories during analysis.
+
+To resolve this issue, the values were standardized to:
+
+```text
+Yes
+No
+```
+
+This ensured consistent grouping, filtering, and reporting in PivotTables and dashboards.
+
+---
+
+### 4. Create `Weight Status`
+
+A new column named **Weight Status** was created based on each customer's BMI value.
+
+The following classification was used:
+
+| BMI | Weight Status |
+|---|---|
+| Below 18.5 | Underweight |
+| 18.5 – 24.9 | Normal Weight |
+| 25.0 – 29.9 | Overweight |
+| 30.0 and above | Obesity |
+
+The following Power Query conditional logic was used:
+
+```powerquery
+if [BMI] >= 30 then "Obesity"
+else if [BMI] >= 25 then "Overweight"
+else if [BMI] >= 18.5 then "Normal Weight"
+else "Underweight"
+```
+
+This transformation converted raw BMI values into meaningful health categories that could be used more easily in analysis and visualization.
+
+---
+
+### 5. Create `Diabetes Status`
+
+A new column named **Diabetes Status** was created using the customer's `HBA1C` value.
+
+The following classification was used:
+
+| HbA1C | Diabetes Status |
+|---|---|
+| Below 5.7 | Normal |
+| 5.7 – 6.4 | Prediabetes |
+| 6.5 and above | Diabetes |
+
+The following Power Query logic was used:
+
+```powerquery
+if [HBA1C] >= 6.5 then "Diabetes"
+else if [HBA1C] >= 5.7 then "Prediabetes"
+else "Normal"
+```
+
+This created a categorical field that made it easier to analyze customers according to their diabetes status.
+
+---
+
+### 6. Create `Date of Birth`
+
+The `year`, `month`, and `date` columns in the **Hospitalization Details** table were combined into a single column named:
+
+```text
+Date of Birth
+```
+
+The resulting date was formatted using the custom format:
+
+```text
+DD-MMM-YYYY
+```
+
+Example:
+
+```text
+09-Jul-1992
+```
+
+Combining the three separate date components into one field improved readability and allowed the date to be used directly for further calculations, including customer age.
+
+---
+
+### 7. Calculate Customer Age
+
+A new column named **Age** was created using each customer's `Date of Birth`.
+
+The age was calculated relative to the dataset collection date:
+
+```text
+08-Jun-2023
+```
+
+The calculation also considers whether the customer's birthday had already occurred during 2023.
+
+The following Power Query calculation was used:
+
+```powerquery
+let
+    DOB = Date.FromText([Date of Birth]),
+    CollectionDate = #date(2023, 6, 8)
+in
+    Date.Year(CollectionDate) - Date.Year(DOB) -
+    (
+        if Date.Month(CollectionDate) < Date.Month(DOB)
+        or
+        (
+            Date.Month(CollectionDate) = Date.Month(DOB)
+            and Date.Day(CollectionDate) < Date.Day(DOB)
+        )
+        then 1
+        else 0
+    )
+```
+
+This produces each customer's completed age as of **8 June 2023**.
+
+Using a fixed collection date instead of the current date ensures that the calculated ages remain consistent with the original dataset.
+
+---
+
+### 8. Format Healthcare Charges
+
+The `charges` column in the **Hospitalization Details** table was formatted as currency using the **US Dollar ($)** symbol.
+
+Example:
+
+```text
+$13,529.92
+```
+
+This improved readability and ensured that healthcare costs were displayed consistently throughout the analysis and dashboard.
+
+---
+
+## Tools and Techniques Used
+
+The following Excel and Power Query features were used during the transformation stage:
+
+- Microsoft Excel
+- Power Query
+- Split Column
+- Conditional Columns
+- Data Type Conversion
+- Text Standardization
+- Date Transformation
+- Custom Date Formatting
+- Age Calculation
+- Currency Formatting
+- Conditional Logic
+
+---
+
+## Transformation Summary
+
+| Transformation | Result |
+|---|---|
+| Customer Names | Split into Title, First Name, and Last Name |
+| NumberOfMajorSurgeries | Converted to numerical values |
+| Heart Issues | Standardized to consistent Yes/No values |
+| smoker | Standardized to consistent Yes/No values |
+| BMI | Converted into Weight Status categories |
+| HbA1C | Converted into Diabetes Status categories |
+| year + month + date | Combined into Date of Birth |
+| Date of Birth | Used to calculate Age as of 08-Jun-2023 |
+| charges | Formatted as US Dollar currency |
+
+---
+
+## New Fields Created
+
+The transformation stage produced several new fields that were later used in the analysis:
+
+```text
+Title
+First Name
+Last Name
+Weight Status
+Diabetes Status
+Date of Birth
+Age
+```
+
+These transformed variables were important for creating the final consolidated healthcare dataset and supporting further analysis and dashboard development.
+
+---
+
+## Outcome
+
+After completing the data-transformation process:
+
+- Customer names were separated into structured fields.
+- Major surgery information was converted into numerical format.
+- Categorical inconsistencies were standardized.
+- BMI values were categorized into meaningful weight-status groups.
+- HbA1C values were categorized into diabetes-status groups.
+- Separate date components were combined into a valid `Date of Birth`.
+- Customer ages were calculated as of **8 June 2023**.
+- Healthcare charges were formatted as currency.
+
+The transformed datasets were then ready for the next stage of the project: **data consolidation, analysis, and dashboard development**.
