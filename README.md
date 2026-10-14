@@ -494,3 +494,236 @@ After completing the data-transformation process:
 - Healthcare charges were formatted as currency.
 
 The transformed datasets were then ready for the next stage of the project: **data consolidation, analysis, and dashboard development**.
+
+
+# Data Exploration, Analysis & Visualization
+
+## Overview
+
+After data cleaning and transformation, the three source tables were combined into a single **Healthcare** dataset using `Customer ID` as the common key.
+
+Microsoft Excel was used to perform:
+
+- Data consolidation with `VLOOKUP`
+- PivotTable analysis
+- Pie, Combo, Column, and Scatter charts
+- Trendline and R² analysis
+- Interactive dashboard creation with slicers
+
+---
+
+## 1. Create the Healthcare Dataset
+
+A new worksheet named **Healthcare** was created by combining:
+
+- Customer Names
+- Medical Examinations
+- Hospitalization Details
+
+`Customer ID` was used as the lookup key.
+
+Example:
+
+```excel id="sftwr1"
+=VLOOKUP(A2,'Hospitalisation solutions (2)'!A:B,2,FALSE)
+```
+
+The final Healthcare dataset included fields such as:
+
+- Customer ID
+- First Name
+- BMI
+- HBA1C
+- Heart Issues
+- Any Transplants
+- Cancer History
+- NumberOfMajorSurgeries
+- smoker
+- Weight Status
+- Diabetes Status
+- Date of Birth
+- charges
+- Hospital tier
+- City tier
+- State ID
+- Age
+
+This consolidated table was used for all further analysis.
+
+---
+
+## 2. Cancer History Among Smokers and Non-Smokers
+
+A PivotTable was created to compare cancer history between smokers and non-smokers.
+
+| Pivot Area | Field |
+|---|---|
+| Rows | smoker |
+| Columns | Cancer history |
+| Values | Count of Customer ID |
+
+Two Pie Charts were created:
+
+- Cancer History Among Smokers
+- Cancer History Among Non-Smokers
+
+This helped compare the proportion of customers with and without a cancer history across smoking groups.
+
+---
+
+## 3. Major Surgeries and HbA1C by Transplant History
+
+A PivotTable was used to compare transplant history with:
+
+- Total Number of Major Surgeries
+- Average HbA1C
+
+| Pivot Area | Field |
+|---|---|
+| Rows | Any Transplants |
+| Values | Sum of NumberOfMajorSurgeries |
+| Values | Average of HBA1C |
+
+A **Combo Chart** was used:
+
+- Major Surgeries → Column
+- Average HbA1C → Line
+- HbA1C → Secondary Axis
+
+This made it easier to compare two measures with different numerical scales.
+
+---
+
+## 4. Healthcare Charges by Weight and Diabetes Status
+
+Average healthcare charges were compared across:
+
+- Weight Status
+- Diabetes Status
+
+| Pivot Area | Field |
+|---|---|
+| Rows | Weight Status |
+| Columns | Diabetes Status |
+| Values | Average of charges |
+
+A **Clustered Column Chart** was used to identify which combinations were associated with higher average healthcare costs.
+
+---
+
+## 5. Average Charges by Hospital Tier and State
+
+A PivotTable was created to compare average healthcare charges across different states and hospital tiers.
+
+| Pivot Area | Field |
+|---|---|
+| Rows | State ID |
+| Columns | Hospital tier |
+| Values | Average of charges |
+
+A **Clustered Column Chart** was used for side-by-side comparison.
+
+---
+
+## 6. Scatter Plot Analysis
+
+Scatter plots were created to study relationships between numerical variables.
+
+### Age vs BMI
+
+```text id="cw0mx2"
+X-axis = Age
+Y-axis = BMI
+```
+
+### Age vs HBA1C
+
+```text id="xwzyv8"
+X-axis = Age
+Y-axis = HBA1C
+```
+
+### Age vs Healthcare Charges
+
+```text id="wiymbx"
+X-axis = Age
+Y-axis = charges
+```
+
+A linear trendline and R² value were added to each chart to evaluate the strength and direction of the relationship.
+
+---
+
+## 7. Healthcare Analytics Dashboard
+
+All visualizations were combined into an interactive dashboard titled:
+
+```text id="kv1ir7"
+Healthcare Analytics Dashboard
+```
+
+The dashboard included:
+
+- Cancer History by Smoking Status
+- Major Surgeries and HbA1C by Transplant History
+- Charges by Weight Status and Diabetes Status
+- Charges by Hospital Tier and State
+- Age vs BMI
+- Age vs HBA1C
+- Age vs Healthcare Charges
+
+Two slicers were added:
+
+- Weight Status
+- Diabetes Status
+
+The slicers were connected to supported PivotTables and PivotCharts using **Report Connections**, allowing users to interactively filter the analysis.
+
+---
+
+## Analysis Summary
+
+| Analysis | Visualization |
+|---|---|
+| Cancer history by smoking status | Pie Charts |
+| Major surgeries and HbA1C by transplant history | Combo Chart |
+| Charges by Weight and Diabetes Status | Clustered Column |
+| Charges by Hospital Tier and State | Clustered Column |
+| Age vs BMI | Scatter Plot |
+| Age vs HBA1C | Scatter Plot |
+| Age vs Charges | Scatter Plot |
+
+---
+
+## Tools & Techniques Used
+
+- Microsoft Excel
+- VLOOKUP
+- PivotTables
+- PivotCharts
+- Pie Charts
+- Combo Charts
+- Clustered Column Charts
+- Scatter Plots
+- Trendlines
+- R² Values
+- Secondary Axis
+- Currency Formatting
+- Slicers
+- Report Connections
+- Dashboard Design
+
+---
+
+## Final Outcome
+
+The analysis stage produced:
+
+- A consolidated Healthcare dataset
+- Multiple comparative healthcare analyses
+- Correlation analysis using scatter plots
+- Healthcare cost comparisons
+- An interactive Excel dashboard
+- Dynamic filtering using Weight Status and Diabetes Status slicers
+
+
