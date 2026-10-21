@@ -759,7 +759,7 @@ This project uses Microsoft Excel and Power Query for healthcare data cleaning, 
 ## Download Complete Excel Project
 [Download Healthcare Excel Workbook](healthcare-Practice-Project-compressed.xlsx)
 
-To explore the interactive dashboard, formulas, worksheets, and analysis, download the workbook and open it in Microsoft Excel.
+
 
 ## Tools Used
 - Microsoft Excel
