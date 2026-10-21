@@ -1,5 +1,3 @@
-
-
 # Medical Data Cleaning
 
 ##  Overview
@@ -725,5 +723,50 @@ The analysis stage produced:
 - Healthcare cost comparisons
 - An interactive Excel dashboard
 - Dynamic filtering using Weight Status and Diabetes Status slicers
+
+
+# Healthcare Data Analysis Project-FILES
+
+## Project Overview
+This project uses Microsoft Excel and Power Query for healthcare data cleaning, transformation, analysis, and dashboard visualization.
+
+## Healthcare Dashboard
+![Healthcare Dashboard](dashboard.png)
+
+## Data Analysis & Charts
+
+### Healthcare Analysis
+![Healthcare Analysis](health%20care.png)
+
+### Average Charges by Hospital Tier
+![Average Charges by Hospital Tier](Average%20charges%20by%20hospital%20tier%20and%20charge.png)
+
+### BMI, Weight Status & Diabetes Status
+![BMI and Diabetes Status](BMI-WEIGHT%20STATUS-DIABETIS%20STATUS.png)
+
+### Hospitalisation by Year and Month
+![Hospitalisation Analysis](hospitalisation%20year%20month.png)
+
+### Smoker vs Non-Smoker
+![Smoker Analysis](smoker-non%20smoker.png)
+
+### Line and Scatter Plot
+![Line Scatter Plot](line-scatter%20plot.png)
+
+### Missing Values
+![Missing Values Analysis](number%20of%20missing%20values.png)
+
+## Download Complete Excel Project
+[Download Healthcare Excel Workbook](healthcare-Practice-Project-compressed.xlsx)
+
+To explore the interactive dashboard, formulas, worksheets, and analysis, download the workbook and open it in Microsoft Excel.
+
+## Tools Used
+- Microsoft Excel
+- Power Query
+- Pivot Tables and Charts
+- Excel Formulas
+- Data Cleaning and Transformation
+  
 
 
